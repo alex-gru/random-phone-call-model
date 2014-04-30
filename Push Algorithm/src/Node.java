@@ -12,8 +12,9 @@ public class Node {
 
     public void infect() {
         if (!infected) {
-            Infector.registerInfectedNode(this);
+            Main.infector.registerInfectedNode(this);
             infected = true;
+//            System.out.println("Node " + index + " infected.");
         }
         numberOfInfections++;
     }
