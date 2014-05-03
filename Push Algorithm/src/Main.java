@@ -13,9 +13,18 @@ public class Main {
     public static final int NUMBER_SIMULATIONS = 100;
     protected static Infector infector;
     private static FileWriter runTimeWriter;
+    private static FileWriter infectionRunsWriter;
 
     public static void main(String[] args) throws InterruptedException, IOException {
-        runTimeWriter = new FileWriter(new File("runtime.csv"));
+//        runTimeWriter = new FileWriter(new File("runtime.csv"));
+//        runTimeWriter.write("RANDOM PHONE CALL MODEL - PUSH ALGORITHM");
+//        runTimeWriter.append("\nSimulation on a complete graph with " + NUMBER_NODES + " nodes. #Simulations: "
+//                + NUMBER_SIMULATIONS + "\nRuntime:\n");
+
+        infectionRunsWriter = new FileWriter(new File("infectionRuns.csv"));
+        infectionRunsWriter.write("RANDOM PHONE CALL MODEL - PUSH ALGORITHM");
+        infectionRunsWriter.append("\nSimulation on a complete graph with " + NUMBER_NODES + " nodes. #Simulations: "
+                + NUMBER_SIMULATIONS + "\nNumber of Infection steps:\n");
 
         for (int i = 0; i < NUMBER_SIMULATIONS; i++) {
             infector = new Infector();
@@ -26,11 +35,14 @@ public class Main {
             spreadInfection();
 //        printNumberOfInfectionsPerNode();
             double runtime = ((double) (System.currentTimeMillis() - start)) / 1000;
-            runTimeWriter.append(runtime + "\n");
+//            runTimeWriter.append(runtime + "\n");
+//            runTimeWriter.flush();
+
             System.out.println("Runtime: " + runtime + " seconds");
         }
 
-        runTimeWriter.close();
+//        runTimeWriter.close();
+        infectionRunsWriter.close();
     }
 
     private static void printNumberOfInfectionsPerNode() {
@@ -40,7 +52,7 @@ public class Main {
         }
     }
 
-    private static void spreadInfection() throws InterruptedException {
+    private static void spreadInfection() throws InterruptedException, IOException {
         int numRuns = 0;
         while (infector.infectedNodes.size() < Main.nodes.length) {
             numRuns++;
@@ -50,7 +62,9 @@ public class Main {
 //            graphNodeStates();
             Thread.sleep(100);
         }
-        System.out.println("ALL NODES INFECTED! Number of runs needed: " + numRuns);
+//        System.out.println("ALL NODES INFECTED! Number of runs needed: " + numRuns);
+        infectionRunsWriter.append(numRuns + "\n");
+        infectionRunsWriter.flush();
     }
 
     private static void displayInfectedNodesIndexes() {
