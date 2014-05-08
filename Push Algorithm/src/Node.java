@@ -1,5 +1,5 @@
 /**
- * User: alexgru
+ Team: Alexander Gruschina | Mario Kotoy
  */
 public class Node {
     protected final int index;

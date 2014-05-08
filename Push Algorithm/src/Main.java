@@ -3,13 +3,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * User: alexgru
+Team: Alexander Gruschina | Mario Kotoy
+This short program shows a demo of the Random Phone Call Model - Push Algorithm.
  */
 public class Main {
 
     private static final boolean LOG_RUNTIME = false;
-    private static final boolean LOG_INFECTIONRUNS = false;
-    private static final boolean LOG_GRAPH = true;
+    private static final boolean LOG_INFECTION_RUNS = false;
+    private static final boolean LOG_GRAPH = false;
 
     public static Node[] nodes;
     public static final int LINE_LENGTH_GRAPH = 100;
@@ -29,7 +30,7 @@ public class Main {
                     + NUMBER_SIMULATIONS + "\nRuntime:\n");
         }
 
-        if (LOG_INFECTIONRUNS) {
+        if (LOG_INFECTION_RUNS) {
             infectionRunsWriter = new FileWriter(new File("infectionRuns.csv"));
             infectionRunsWriter.write("RANDOM PHONE CALL MODEL - PUSH ALGORITHM");
             infectionRunsWriter.append("\nSimulation on a complete graph with " + NUMBER_NODES + " nodes. #Simulations: "
@@ -50,7 +51,7 @@ public class Main {
             infectRandomStartNode();
             long start = System.currentTimeMillis();
             spreadInfection();
-//        printNumberOfInfectionsPerNode();
+//            printNumberOfInfectionsPerNode();
             double runtime = ((double) (System.currentTimeMillis() - start)) / 1000;
 
             if (LOG_RUNTIME) {
@@ -64,7 +65,7 @@ public class Main {
         if (LOG_RUNTIME) {
             runTimeWriter.close();
         }
-        if (LOG_INFECTIONRUNS) {
+        if (LOG_INFECTION_RUNS) {
             infectionRunsWriter.close();
         }
         if (LOG_GRAPH) {
@@ -90,7 +91,7 @@ public class Main {
             Thread.sleep(100);
         }
         System.out.println("ALL NODES INFECTED! Number of runs needed: " + numRuns);
-        if (LOG_INFECTIONRUNS) {
+        if (LOG_INFECTION_RUNS) {
             infectionRunsWriter.append(numRuns + "\n");
             infectionRunsWriter.flush();
         }
@@ -109,16 +110,22 @@ public class Main {
         while (i < nodes.length) {
             if (i % LINE_LENGTH_GRAPH == 0 && i != 0) {
                 System.out.println();
-                infectionGraphWriter.append("\n");
+                if (LOG_GRAPH) {
+                    infectionGraphWriter.append("\n");
+                }
             }
 
             Node current = nodes[i];
             if (current.infected) {
                 System.out.print("X ");
-                infectionGraphWriter.append("X ");
+                if (LOG_GRAPH) {
+                    infectionGraphWriter.append("X ");
+                }
             } else {
                 System.out.print("  ");
-                infectionGraphWriter.append("  ");
+                if (LOG_GRAPH) {
+                    infectionGraphWriter.append("  ");
+                }
             }
             i++;
         }

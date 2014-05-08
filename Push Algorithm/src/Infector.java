@@ -1,9 +1,8 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * User: alexgru
+ Team: Alexander Gruschina | Mario Kotoy
  */
 public class Infector {
     protected List<Node> infectedNodes = new CopyOnWriteArrayList<Node>();
